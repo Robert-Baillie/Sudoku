@@ -1,7 +1,6 @@
-#include "Cell.cpp"
 #include <vector>
 #include <algorithm>
-#include "BoardProperties.cpp"
+#include <time.h>   
 
 using namespace std;
 
@@ -9,53 +8,58 @@ using namespace std;
 class Board
 {
 private:
-    // Methods
-    void InitialiseBoard(vector<vector<Cell>>& board);
-    void InitialiseRow(vector<Cell>& row, int row_num);
+    // Methods - Board Initialisation
+    void InitialiseBoard(vector<vector<int>>& board);
+    void FillInBox(int box_int, vector<vector<int>>& board);
 
 
-    
-    // void FillInBoxRandom(vector<vector<Cell>>& board, int box);
-    void FillCell(Cell& cell);
-    int GetRandomNumber(vector<int> vector);
+    // Solving Methods:
+    bool SolveBoard(vector<vector<int>>& board);
+    vector<int> FindEmpty(vector<vector<int>>& board);
+
+    // Valid Spot Methods
+    bool CheckValidNumber(int num, int row_ind, int col_ind);
+    bool CheckValidRow(int num, int row_ind, int col_ind);
+    bool CheckValidColumn(int num, int row_ind, int col_ind);
+    bool CheckValidBox(int num, int row_ind, int col_ind);
 
 
-    // Variables
-    BoardProperties board_properties;
-    
+    // Utility Functions
+    int GetRandomIntFromVector(vector<int> &vec);
 public:
     // Construct
-    Board(/* args */);
+    Board();
     ~Board();
 
-    // Rows
-    vector<Cell> row_one;
-    vector<Cell> row_two;
-    vector<Cell> row_three;
-    vector<Cell> row_four;
-    vector<Cell> row_five;
-    vector<Cell> row_six;
-    vector<Cell> row_seven;
-    vector<Cell> row_eight;
-    vector<Cell> row_nine;
-    
+    // Utility
+    void PrintBoard();
+
+
     // Board
-    vector<vector<Cell>> board;
+    vector<vector<int>> board = {{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}
+                                ,{0,0,0,0,0,0,0,0,0}};
 
 
     
 };
 
 
-Board::Board(/* args */)
+Board::Board()
 {
-    board_properties = BoardProperties();
-
-    /// Initialise Board - Fill Diagonal Boxes
+   
+    /// Initialise Board 
     InitialiseBoard(board);
 
 
-    //
+    /// Solve
+    SolveBoard(board);
 }
 
 Board::~Board()
@@ -63,107 +67,199 @@ Board::~Board()
 }
 
 
-void Board::InitialiseBoard(vector<vector<Cell>>& board){
-    /// Insert rows
-    board = {row_one,
-            row_two,
-            row_three,
-            row_four,
-            row_five,
-            row_six,
-            row_seven,
-            row_eight,
-            row_nine};
+/* Fill In Boxes down the diagonals */
+void Board::InitialiseBoard(vector<vector<int>>& board){
+    /// Boxes 0, 3, 6
+    for (size_t i = 0; i < 9; i+=3)  
+    {
+        FillInBox(i, board);
+    }
     
-    // Row Set Up
+
+}
+
+/* Using the box number passed - find the squares to populate */
+void Board::FillInBox(int box_int, vector<vector<int>>& board){
+    // Create a temporary vector that will be used to populate data
+    vector<int> one_to_nine_tmp = {1,2,3,4,5,6,7,8,9};
+
+    for (size_t row = 0; row < 3; row++)
+    {
+        for (size_t col = 0; col < 3; col++)
+        {
+            int num = GetRandomIntFromVector(one_to_nine_tmp);
+            board[row + box_int][col + box_int] = num;
+            one_to_nine_tmp.erase(remove(one_to_nine_tmp.begin(), one_to_nine_tmp.end(), num), one_to_nine_tmp.end());
+
+        }
+        
+    }
+    
+
+}
+
+/* Validation Methods*/
+
+// Check if number is valid in the row, column and the box, any that return false makes whole loop false
+bool Board::CheckValidNumber(int num, int row_ind, int col_ind){
+    return (CheckValidRow(num, row_ind, col_ind)
+            && CheckValidColumn(num, row_ind, col_ind)
+            && CheckValidBox(num, row_ind, col_ind));
+}
+
+
+/// Row
+bool Board::CheckValidRow(int num, int row_ind, int col_ind){
+    int size = 9;   /// Hard coded for now - could change to SQRT board
+
+    // Loop through the row
+    for (size_t i = 0; i < size; i++)
+    {
+        // If the column we are on is equal to the number (and it isnt the column we passed) then it is not valid
+        if(board[row_ind][i] == num && i != col_ind) return false;
+        
+    }
+    
+    // Passed so valid
+    return true;
+}
+
+// Column
+bool Board::CheckValidColumn(int num, int row_ind, int col_ind){
+    int size = 9;   /// Hard coded for now - could change to SQRT board
+
+    // Loop through the column
+    for (size_t i = 0; i < size; i++)
+    {
+        // If the row we are on is equal to the number (and it isnt the column we passed) then it is not valid
+        if(board[i][col_ind] == num && i != row_ind) return false;
+        
+    }
+    
+    // Passed so valid
+    return true;
+}
+
+// Box
+bool Board::CheckValidBox(int num, int row_ind, int col_ind){
+    /// Using interger division - return 0, 1 ,2
+    /// This gives us the starting x and y of the box
+    // x and y as in normal cartesian
+    int x = col_ind / 3;
+    int y = row_ind / 3;
+    
+    // Multiply by 3 to get the end of box
+    int x_adj = x * 3;
+    int y_adj = y * 3;   
+
+    for (size_t i = y_adj; i < y_adj + 3; i++)
+    {
+        for (size_t j = x_adj; j < x_adj + 3; j++)
+        {
+            // cout << "Now Checking Row: " << i << " and Column " << j << endl;
+            if(board[i][j] == num && (i != row_ind && j != col_ind)){
+                // cout << num << " is not valid for: " << i << " " << j << endl;
+                
+                return false;
+            }
+        }
+        
+    }
+    
+    return true;
+}
+
+/* Board Solivng Methods */
+bool Board::SolveBoard(vector<vector<int>>& board){
+    int row;
+    int col;
+
+    // Step 1 (Base case)- Find an empty spot. If we do not find one, then the board is complete!
+    // Store the found in a vector - 0 = i, 1 = j;
+    vector<int> find = FindEmpty(board);
+    
+    if(find.size() != 2) return true;
+    // Step 2 - Assign Row and col
+    else{
+        row = find[0];
+        col = find[1];
+    }
+
+    // Step 3 - Loop through the values of 1 - 9
+    for (size_t num = 1; num < 10; num++)
+    {
+        // Step 4 - If valid then add it into the board
+        if(CheckValidNumber(num, row, col)){
+            board[row][col] = num;
+
+            // Step 5 - If we can solve this new board - return true
+            if(SolveBoard(board)) return true;
+            
+            // Step 6 - otherwise return
+            board[row][col] = 0;
+        }
+
+        
+    }
+    return false;
+}  
+
+
+vector<int> Board::FindEmpty(vector<vector<int>>& board){
+    vector<int> vec = {};
+    int size = 9;
+
+    for (size_t i = 0; i < size; i++)
+    {
+        for (size_t j = 0; j < size; j++)
+        {
+           if(board[i][j] == 0){
+               vec.push_back(i);
+               vec.push_back(j);
+               return vec;
+           }
+        }
+        
+    }
+    
+
+    return vec;
+}
+
+
+/* Helper Methods*/
+
+/* Utility Method to Print the board */
+void Board::PrintBoard(){
+
     for (size_t i = 0; i < board.size(); i++)
     {
-        InitialiseRow(board[i], i);
-    }
-    
-}
-
-void Board::InitialiseRow(vector<Cell>& row, int row_num){
-    row_num++;
-
-    int box_num_start = 1;
-    if(row_num > 6) box_num_start =7; 
-    else if(row_num >3) box_num_start = 4;
-
-    for (size_t i = 0; i < 9; i++)
-    {
-        int box_num = box_num_start;
-        if(i > 5) box_num = box_num_start +2;
-        else if(i > 2) box_num = box_num_start +1;
+        vector<int> row = board[i];
+        int size = row.size();
 
 
-        Cell cell;
-        cell.row_number = row_num;
-        cell.column_number = (i+1);
-        cell.box_number = box_num;
-
-        cell.cell_number =0;
-
-        if(box_num ==1) FillCell(cell);
-        if(box_num ==5){};
-        if(box_num ==9){};
+        // Print row bars
+        if(i % 3 == 0 && i != 0) cout << "------------"<<endl;
 
 
-        row.push_back(cell);
-    }
-    
-}
-
-
-int Board::GetRandomNumber(vector<int> vector){
-    int rnd = rand() % vector.size();
-    return vector[rnd];
-}
-
-
-void Board::FillCell(Cell &cell){
-    
-}
-
-
-/// OLD LOGIC
-/*
-void Board::FillInBoxRandom(vector<vector<Cell>>& board, const int box){
-    int column_addition =0;
-    int row_addition = 0;
-    vector<int> one_to_nine_tmp = one_to_nine;
-
-    /// TEST
-    if(box == 0){
-        column_addition = 0;
-        row_addition = 0;
-    }
-    else if(box == 4){
-        column_addition = 3;
-        row_addition = 3;
-    } 
-    else if(box == 8){
-        column_addition = 6;
-        row_addition = 6;
-    } 
-
-    for (size_t i = 0; i < 3; i++)
-    {
-        for (size_t j = 0; j < 3; j++)
-        {
-            Cell cell = board[i + row_addition][j+column_addition];
-
-            int num = GetRandomNumber(one_to_nine_tmp);
-            cout << "Inserting " << num << endl;
-            cell.cell_number = num;
-
-            board[i + row_addition][j+column_addition] = cell;
-
-            one_to_nine_tmp.erase(std::remove(one_to_nine_tmp.begin(), one_to_nine_tmp.end(), num), one_to_nine_tmp.end());
+        for (size_t j = 0; j < size; j++)
+        {  
+            if(j % 3 == 0 && j != 0) cout << "|" ;
+            cout << board[i][j];
+            
         }
+        cout << endl;
     }
-    
-
-
+    cout << endl;
 }
-*/
+
+
+/* Utility Function as named*/
+int Board::GetRandomIntFromVector(vector<int> &vec){
+    // Generate Random Integer
+    int rnd_ind = rand() % vec.size();
+    int num = vec[rnd_ind];
+
+    // Return
+    return num;
+}
