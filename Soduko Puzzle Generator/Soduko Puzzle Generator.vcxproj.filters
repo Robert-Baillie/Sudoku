@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{303d8fb8-7774-409a-bdeb-11acf18c3ca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class Files">
+      <UniqueIdentifier>{584038a0-1ffe-4d87-946c-fc3b0f37cba9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source Code\main.cpp" />
+    <ClCompile Include="Source Code\Class Files\Board.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Code\Class Files\Solver.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source Code\Header Files\Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\Header Files\Solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
