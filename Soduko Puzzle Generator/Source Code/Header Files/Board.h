@@ -35,6 +35,7 @@ public:
 
     // Utility
     void PrintBoard();
+    int EmptySlotCount();
 
 
     // Board

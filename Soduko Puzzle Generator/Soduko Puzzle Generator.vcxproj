@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Code\Class Files\Board.cpp" />
+    <ClCompile Include="Source Code\Class Files\PuzzleExtractor.cpp" />
     <ClCompile Include="Source Code\Class Files\Solver.cpp" />
     <ClCompile Include="Source Code\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Code\Header Files\Board.h" />
+    <ClInclude Include="Source Code\Header Files\PuzzleExtractor.h" />
     <ClInclude Include="Source Code\Header Files\Solver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

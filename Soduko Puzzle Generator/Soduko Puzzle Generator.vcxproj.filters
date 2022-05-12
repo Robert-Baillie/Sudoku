@@ -16,12 +16,18 @@
     <ClCompile Include="Source Code\Class Files\Solver.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Code\Class Files\PuzzleExtractor.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Code\Header Files\Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\Header Files\Solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\Header Files\PuzzleExtractor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

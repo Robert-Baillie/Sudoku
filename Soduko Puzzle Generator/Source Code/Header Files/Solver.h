@@ -10,7 +10,7 @@ using namespace std;
 
 class Solver
 {
-public: /// Cannot create an instance
+public: 
     static int GetSolutionCountOfBoard(Board& bo);
     static bool SolveBoardUnique(Board& bo, int& solution_count);
 };

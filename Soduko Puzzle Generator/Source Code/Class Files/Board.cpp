@@ -205,6 +205,26 @@ void Board::PrintBoard() {
     cout << endl;
 }
 
+int Board::EmptySlotCount() {
+    int c = 0;
+
+    for (size_t i = 0; i < board.size(); i++)
+    {
+        vector<int> row = board[i];
+        int size = row.size();
+
+
+        for (size_t j = 0; j < size; j++)
+        {
+            if (board[i][j] == 0) c++;
+
+        }
+    }
+
+    return c;
+}
+
+
 
 /* Utility Function as named*/
 int Board::GetRandomIntFromVector(vector<int>& vec) {

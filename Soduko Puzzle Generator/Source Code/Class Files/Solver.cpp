@@ -8,6 +8,8 @@ int Solver::GetSolutionCountOfBoard(Board& bo) {
 }
 
 bool Solver::SolveBoardUnique(Board& bo, int& solution_count) {
+    // if (solution_count >= 2) return true; /// Temporary fix for callstack error...
+
     int row;
     int col;
     // Step 1 (Base case)- Find an empty spot. If we do not find one, then the board is complete!
@@ -20,12 +22,18 @@ bool Solver::SolveBoardUnique(Board& bo, int& solution_count) {
         // Stop if we get to 10
         // if(solution_count == 10) return true;
 
-        // Remove the alst number - start loop from penultamite
+        // Remove the last number
         row = 8;
-        col = 7;
+        //col = 7;
+        col = 8;
 
         int last_num = bo.board[row][col];
-        for (size_t num = last_num + 1; num < 10; num++)
+        int start;
+
+        if (last_num == 9) start = last_num - 1;
+        else start = last_num + 1;
+
+        for (size_t num = start; num < 10; num++)
         {
 
             if (bo.CheckValidNumber(num, row, col)) {
@@ -39,8 +47,9 @@ bool Solver::SolveBoardUnique(Board& bo, int& solution_count) {
             }
             return false;
 
-
         }
+        
+        
 
     }
     // Step 2 - Assign Row and col
