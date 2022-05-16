@@ -21,13 +21,15 @@
   <ItemGroup>
     <ClCompile Include="Source Code\Class Files\Board.cpp" />
     <ClCompile Include="Source Code\Class Files\PuzzleExtractor.cpp" />
-    <ClCompile Include="Source Code\Class Files\Solver.cpp" />
+    <ClCompile Include="Source Code\Class Files\UniqueSolver.h.cpp" />
     <ClCompile Include="Source Code\main.cpp" />
+    <ClCompile Include="LogicSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LogicSolver.h" />
     <ClInclude Include="Source Code\Header Files\Board.h" />
     <ClInclude Include="Source Code\Header Files\PuzzleExtractor.h" />
-    <ClInclude Include="Source Code\Header Files\Solver.h" />
+    <ClInclude Include="Source Code\Header Files\UniqueSolver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

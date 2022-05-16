@@ -1,13 +1,13 @@
-#include "Solver.h"
+#include "UniqueSolver.h"
 
 
-int Solver::GetSolutionCountOfBoard(Board& bo) {
+int UniqueSolver::GetSolutionCountOfBoard(Board& bo) {
     int solution_count = 0;
     SolveBoardUnique(bo, solution_count);
     return solution_count;
 }
 
-bool Solver::SolveBoardUnique(Board& bo, int& solution_count) {
+bool UniqueSolver::SolveBoardUnique(Board& bo, int& solution_count) {
     // if (solution_count >= 2) return true; /// Temporary fix for callstack error...
 
     int row;

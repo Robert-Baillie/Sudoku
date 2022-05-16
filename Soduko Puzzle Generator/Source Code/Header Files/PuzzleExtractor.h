@@ -4,7 +4,7 @@
 #include <iostream>
 #include <algorithm>
 
-#include "Solver.h"
+#include "UniqueSolver.h"
 #include "Board.h" 
 
 #ifndef PUZZLEEXTRACTOR_H
@@ -16,7 +16,7 @@ class PuzzleExtractor
 {
 public: 
     static void RemoveNumbersUntilNonUniqueness(Board& bo);
-    static void RemoveNumber(Board& bo, int slot_to_remove, vector<int>& slots_remaining);
+    static void RemoveNumbers(Board& bo, int slot_to_remove, vector<int>& slots_remaining);
 
 private:
      vector<int> slots_remaining = {};

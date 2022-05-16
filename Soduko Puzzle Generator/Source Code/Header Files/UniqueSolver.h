@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Solver
+class UniqueSolver
 {
 public: 
     static int GetSolutionCountOfBoard(Board& bo);

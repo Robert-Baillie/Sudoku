@@ -13,10 +13,13 @@
     <ClCompile Include="Source Code\Class Files\Board.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Code\Class Files\Solver.cpp">
+    <ClCompile Include="Source Code\Class Files\UniqueSolver.h.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\Class Files\PuzzleExtractor.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicSolver.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -24,10 +27,13 @@
     <ClInclude Include="Source Code\Header Files\Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source Code\Header Files\Solver.h">
+    <ClInclude Include="Source Code\Header Files\UniqueSolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\Header Files\PuzzleExtractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicSolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
