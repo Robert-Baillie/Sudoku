@@ -1,5 +1,5 @@
 #include "LogicSolver.h"
-
+#include "MatchCountTable.h"
 
 int LogicSolver::SolveBoard(Board& bo) {
     /// Difficulty point count at end
@@ -14,25 +14,56 @@ int LogicSolver::SolveBoard(Board& bo) {
 
     // Print board
     
-    PrintSolutionBoard(possible_solutions);
 
 
-    // Loop through
-    for (size_t tesd = 0; tesd < 5; tesd++)
+    // Loop through - could do all in an individual loop - looping three times gives a better score accuracy
+    
+
+    for (size_t iteration = 0; iteration < 3; iteration++)
     {
+        if (bo.EmptySlotCount() == 0) break;
+
+        /// Single Cell Solving
         for (size_t i = 0; i < possible_solutions.size(); i++)
         {
-            /// Only change solve for unsolved numbers - can be solved after each so check each time
+            // Only change solve for unsolved numbers - can be solved after each so check each time
             if (bo.board[i / 9][i % 9] == 0) RowSolver(bo, possible_solutions, difficulty_score, i);
             if (bo.board[i / 9][i % 9] == 0)  ColSolver(bo, possible_solutions, difficulty_score, i);
             if (bo.board[i / 9][i % 9] == 0)  BoxSolver(bo, possible_solutions, difficulty_score, i);
         }
 
-        cout << endl;
-        bo.PrintBoard();
-        PrintSolutionBoard(possible_solutions);
+
+
+        /// Match Solving
+
+        // Loop over rows
+        for (size_t i = 0; i < 81; i += 9)
+        {
+            RowMatchSolver(bo, possible_solutions, difficulty_score, i);
+
+        }
+
+        // Loop over columns
+        for (size_t i = 0; i < 9; i++)
+        {
+            ColMatchSolver(bo, possible_solutions, difficulty_score, i);
+
+        }
+
+        // Loop over boxes
+        for (size_t i = 0; i < 81; i += 27)
+        {
+            for (size_t j = 0; j < 9; j += 3)
+            {
+                BoxMatchSolver(bo, possible_solutions, difficulty_score, i + j);
+            }
+
+        }
     }
+   
+   
     
+    if (bo.EmptySlotCount() != 0) cout << "We do not have the technique to solve this puzzle (or this puzzle is not valid) in three iterations! " << endl;
 
     return difficulty_score;
 }
@@ -79,13 +110,15 @@ vector<vector<int>> LogicSolver::InitialisePossibleSolutions()
 
 /// Logic Solvers
 
-bool LogicSolver::RowSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
+// Single Cell
+
+void LogicSolver::RowSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
 {
     vector<int> available = possible_solutions[indx];
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return;
     }
 
     int row_start = (indx / 9) * 9;
@@ -110,20 +143,19 @@ bool LogicSolver::RowSolver(Board& bo, vector<vector<int>>& possible_solutions, 
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return;
     }
  
 
-    return false;
 }
 
-bool LogicSolver::ColSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
+void LogicSolver::ColSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
 {
     vector<int> available = possible_solutions[indx];
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return;
     }
 
     int col_start = indx % 9;
@@ -147,21 +179,21 @@ bool LogicSolver::ColSolver(Board& bo, vector<vector<int>>& possible_solutions, 
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return ;
     }
 
-    return false;
+    
 
 }
 
-bool LogicSolver::BoxSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
+void LogicSolver::BoxSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx)
 {
 
     vector<int> available = possible_solutions[indx];
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return;
     }
 
     int box_row_start = (indx / 9) /3 * 3;
@@ -192,12 +224,188 @@ bool LogicSolver::BoxSolver(Board& bo, vector<vector<int>>& possible_solutions, 
 
     if (available.size() == 1) {
         SetAvailable(bo, possible_solutions, indx, available, points);
-        return true;
+        return;
     }
 
-    return false;
 }
 
+// Match Cell
+void LogicSolver::RowMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx) {
+    MatchCountTable count_table;
+
+    vector<int> nums_to_remove;
+
+    /// Given i - starting index of a row - loop through the row ( + 1)
+    for (size_t i = indx; i < 9; i++)
+    {
+        // If there is a solution - do not add to the count table
+        if (possible_solutions[i].size() != 1) count_table.AddCount(possible_solutions[i]);
+
+    }
+
+    // Loop through the count table - if the size is the same as the count then it must be in there - so remove those numbers from the rest of the row.
+    for (size_t i = 0; i < count_table.values.size(); i++)
+    {
+        if (count_table.values[i].size() == count_table.count[i]) {
+            nums_to_remove = count_table.values[i];
+        }
+    }
+
+     
+    /// Loop through row and remvoe
+    for (size_t i = indx; i < 9; i++)
+    {
+        // If there is a solution - do not add to the count table
+        if (possible_solutions[i] != nums_to_remove && nums_to_remove.size() != 0 && possible_solutions[i].size() != 1) {
+
+            
+             
+            for (size_t j= 0; j < nums_to_remove.size(); j++)
+            {
+                int size = possible_solutions[i].size();
+
+                /// below does not necessarily erase a number - if it does then we can add points :)
+                possible_solutions[i].erase(remove(possible_solutions[i].begin(), possible_solutions[i].end(), nums_to_remove[j]), possible_solutions[i].end());
+
+                if (size != possible_solutions[i].size()) points += 250;
+                if (possible_solutions[i].size() == 1) {
+                    int row = i / 9;
+                    int col = i % 9;
+
+                    bo.board[row][col] = possible_solutions[i][0];
+                    points += 50;
+                    RemoveFromPossibleSolutions(bo, possible_solutions, i, row, col, possible_solutions[i][0]);
+                    
+                }
+            }
+            
+
+        }
+
+    }
+}
+
+void LogicSolver::ColMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx) {
+    MatchCountTable count_table;
+
+    vector<int> nums_to_remove;
+
+    /// Given i - starting index of a column - loop through the row ( + 1)
+    for (size_t i = indx; i < 81; i+=9)
+    {
+        // If there is a solution - do not add to the count table
+        if (possible_solutions[i].size() != 1) count_table.AddCount(possible_solutions[i]);
+
+    }
+
+    // Loop through the count table - if the size is the same as the count then it must be in there - so remove those numbers from the rest of the row.
+    for (size_t i = 0; i < count_table.values.size(); i++)
+    {
+        if (count_table.values[i].size() == count_table.count[i]) {
+            nums_to_remove = count_table.values[i];
+        }
+    }
+
+   
+    /// Loop through column and remvoe
+    for (size_t i = indx; i < 81; i+=9)
+    {
+        // If there is a solution - do not add to the count table
+        if (possible_solutions[i] != nums_to_remove && nums_to_remove.size() != 0 && possible_solutions[i].size() != 1) {
+            int size = possible_solutions[i].size();
+
+            for (size_t j = 0; j < nums_to_remove.size(); j++)
+            {
+
+                /// below does not necessarily erase a number - if it does then we can add points :)
+                possible_solutions[i].erase(remove(possible_solutions[i].begin(), possible_solutions[i].end(), nums_to_remove[j]), possible_solutions[i].end());
+
+                if (possible_solutions[i].size() == 1) {
+                    int row = i / 9;
+                    int col = i % 9;
+
+                    bo.board[row][col] = possible_solutions[i][0];
+                    points += 50;
+                    RemoveFromPossibleSolutions(bo, possible_solutions, i, row, col, possible_solutions[i][0]);
+
+                }
+            }
+            if (size != possible_solutions[i].size()) points += 250;
+
+
+        }
+
+    }
+
+
+
+    
+}
+
+void LogicSolver::BoxMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx) {
+
+    MatchCountTable count_table;
+
+    vector<int> nums_to_remove;
+
+    /// Given i - starting index of a box (tl) 
+    for (size_t i = indx; i < (indx + 3); i++)
+    {
+        for (size_t k = i; k < (i + 19); k += 9)
+        {
+            // If there is a solution - do not add to the count table
+            if (possible_solutions[k].size() != 1) count_table.AddCount(possible_solutions[k]);
+        }
+    }
+
+    // Loop through the count table - if the size is the same as the count then it must be in there - so remove those numbers from the rest of the row.
+    for (size_t i = 0; i < count_table.values.size(); i++)
+    {
+        if (count_table.values[i].size() == count_table.count[i]) {
+            nums_to_remove = count_table.values[i];
+        }
+    }
+
+
+    /// Loop through box and remvoe
+    for (size_t i = indx; i < (indx + 3); i++)
+    {
+        for (size_t k = i; k < (i + 19); k += 9)
+        {
+
+            // If there is a solution - do not add to the count table
+            if (possible_solutions[k] != nums_to_remove && nums_to_remove.size() != 0 && possible_solutions[k].size() != 1) {
+                int size = possible_solutions[k].size();
+
+                for (size_t j = 0; j < nums_to_remove.size(); j++)
+                {
+
+                    /// below does not necessarily erase a number - if it does then we can add points :)
+                    possible_solutions[k].erase(remove(possible_solutions[k].begin(), possible_solutions[k].end(), nums_to_remove[j]), possible_solutions[k].end());
+
+                    if (possible_solutions[k].size() == 1) {
+                        int row = k / 9;
+                        int col = k % 9;
+
+                        bo.board[row][col] = possible_solutions[k][0];
+                        points += 50;
+                        RemoveFromPossibleSolutions(bo, possible_solutions, k, row, col, possible_solutions[k][0]);
+
+                    }
+                }
+                if (size != possible_solutions[k].size()) points += 250;
+
+
+            }
+        }
+    }
+
+    
+
+
+
+   
+}
 
 
 /// Utility
@@ -268,3 +476,4 @@ void LogicSolver::SetAvailable(Board& bo, vector<vector<int>>& possible_solution
     points += 100;
     RemoveFromPossibleSolutions(bo, possible_solutions, indx, row, col, available[0]);
  }
+

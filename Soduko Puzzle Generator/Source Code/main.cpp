@@ -2,6 +2,7 @@
 #include "UniqueSolver.h"
 #include "PuzzleExtractor.h"
 #include "LogicSolver.h"
+#include "MatchCountTable.h"
 #include <time.h>   
 #include <iostream>
 
@@ -10,34 +11,36 @@ using namespace std;
 
 int main() {
 
- //   srand(time(NULL));
-    srand(1);
+    srand(time(NULL));
+  //  srand(1);
 
 
-    
+    for (size_t i = 0; i < 1000; i++)
+    {
+
+
         Board b = Board();
         PuzzleExtractor::RemoveNumbersUntilNonUniqueness(b);
-
+        cout << "Board: " << i + 1 << endl;
         cout << "The board has: " << UniqueSolver::GetSolutionCountOfBoard(b) << " solutions!" << endl;
 
-        
 
 
-         b.board = { {1,0,0,0,0,4,0,8,0}
-                         ,{0,4,0,0,0,0,0,1,0}
-                         ,{8,0,6,2,0,0,0,0,0}
-                         ,{0,0,0,5,2,0,7,0,0}
-                         ,{0,0,7,0,4,0,2,0,0}
-                         ,{0,0,1,0,9,3,0,0,0}
-                         ,{0,0,0,0,0,2,5,0,3}
-                         ,{0,8,0,0,0,0,0,6,0}
-                         ,{0,9,0,3,0,0,0,0,4} };
-         cout << endl;
-        b.PrintBoard();
+
+         // b.board = { {1,0,0,0,0,4,0,8,0}
+         //                 ,{0,4,0,0,0,0,0,1,0}
+         //                 ,{8,0,6,2,0,0,0,0,0}
+         //                 ,{0,0,0,5,2,0,7,0,0}
+         //                 ,{0,0,7,0,4,0,2,0,0}
+         //                 ,{0,0,1,0,9,3,0,0,0}
+         //                 ,{0,0,0,0,0,2,5,0,3}
+         //                 ,{0,8,0,0,0,0,0,6,0}
+         //                 ,{0,9,0,3,0,0,0,0,4} };
+
         cout << endl << "The number of empty slots is: " << b.EmptySlotCount() << endl;
 
-        cout << "The difficulty score is: " << LogicSolver::SolveBoard(b);
-    
+        cout << "The difficulty score is: " << LogicSolver::SolveBoard(b) << endl;
+    }
     
     // End
     return 0;

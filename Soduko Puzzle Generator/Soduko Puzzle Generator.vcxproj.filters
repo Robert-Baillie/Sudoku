@@ -22,6 +22,9 @@
     <ClCompile Include="LogicSolver.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Code\Class Files\MatchCountTable.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Code\Header Files\Board.h">
@@ -34,6 +37,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LogicSolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\Header Files\MatchCountTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

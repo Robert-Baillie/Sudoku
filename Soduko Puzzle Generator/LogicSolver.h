@@ -21,9 +21,17 @@ public:
 
 
     // Logic Solving Methods - https://medium.com/@eneko/solving-sudoku-puzzles-programmatically-with-logic-and-without-brute-force-b4e8b837d796
-    static bool RowSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
-    static bool ColSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
-    static bool BoxSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+    // Single Cell
+    static void RowSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+    static void ColSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+    static void BoxSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+
+    // Match Cells
+    static void RowMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+    static void ColMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+    static void BoxMatchSolver(Board& bo, vector<vector<int>>& possible_solutions, int& points, int indx);
+
+    // Exclusive Cells
 
     // Main method
     static int SolveBoard(Board& bo);

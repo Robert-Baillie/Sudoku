@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Code\Class Files\Board.cpp" />
+    <ClCompile Include="Source Code\Class Files\MatchCountTable.cpp" />
     <ClCompile Include="Source Code\Class Files\PuzzleExtractor.cpp" />
     <ClCompile Include="Source Code\Class Files\UniqueSolver.h.cpp" />
     <ClCompile Include="Source Code\main.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="LogicSolver.h" />
     <ClInclude Include="Source Code\Header Files\Board.h" />
+    <ClInclude Include="Source Code\Header Files\MatchCountTable.h" />
     <ClInclude Include="Source Code\Header Files\PuzzleExtractor.h" />
     <ClInclude Include="Source Code\Header Files\UniqueSolver.h" />
   </ItemGroup>
