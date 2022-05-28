@@ -17,11 +17,11 @@ class Board:
         self.puzzle_board = None
         
         # Fill in the diagonals
-        self.initialise_board()
+        #self.initialise_board()
 
         
         # Fill in the rest recursively
-        self.fill_board()
+        #self.fill_board()
     
 
 

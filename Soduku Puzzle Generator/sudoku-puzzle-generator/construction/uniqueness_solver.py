@@ -14,23 +14,25 @@ class UniqueSolver:
     
     @classmethod
     def solve_board_unique(cls,bo, last_slot_checked):
+        row, col = None, None
 
         if(last_slot_checked != None):
             row = last_slot_checked[0]
             col = last_slot_checked[1]
+        
         # Works very similar to the fill board method in board (Needs to fill board recursively)
 
         #  Find an empty spot - if we do not find one then the board is complete
         find = bo.find_empty()
+
+        
 
         if(find is None): 
             # We have a solution - can add limitations here
             cls.solution_count = cls.solution_count + 1
             
             #Remove the last number on the board
-            row = 8
-            col = 8
-
+            
             last_num = bo.board[row][col]
             start = None
 
@@ -47,7 +49,7 @@ class UniqueSolver:
                     bo.board[row][col] = num
 
                     
-                    if(cls.solve_board_unique(bo)): 
+                    if(cls.solve_board_unique(bo, last_slot_checked)): 
                         return True
 
                     
@@ -64,7 +66,7 @@ class UniqueSolver:
                     bo.board[row][col] = num
 
                     
-                    if(cls.solve_board_unique(bo)): 
+                    if(cls.solve_board_unique(bo, find)): 
                         return True
 
                     

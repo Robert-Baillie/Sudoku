@@ -12,10 +12,13 @@ class Extractor:
         
         board = bo.board
 
-        slot_to_remove= None;
+        slot_to_remove = np.random.choice(slots_remaining)
         # Forty (middle) causes an error which will return a null board on first selction - make sure we dont start with this
         while(slot_to_remove == 40):
             slot_to_remove = np.random.choice(slots_remaining)
+        
+        # Remove the first set of numbers before starting the loop
+        cls.remove_numbers(bo, slot_to_remove)
 
         #Remove a slot whilst the uniqueness count of the board is 1
         while(UniqueSolver.get_solution_count(bo) == 1):
