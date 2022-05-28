@@ -1,4 +1,3 @@
-
 import numpy as np
 import tests
 # Buidling Board
@@ -9,6 +8,7 @@ from tests import hidden_single_test
 
 # Naked Tests
 from tests import naked_pair_test
+from tests import naked_triple_test
 
 # Pointing Tests 
 
@@ -25,11 +25,17 @@ if __name__ == '__main__':
 
 
   # By visual inspection these tests pass
-
-  # To Confirm working
   # Naked
   # naked_pair_test.naked_pair_test_row()
   # naked_pair_test.naked_pair_test_col()
-  naked_pair_test.naked_pair_test_box()
+  # naked_pair_test.naked_pair_test_box()
+  #  naked_triple_test.naked_triple_test_col()
+  # naked_triple_test.naked_triple_test_row()
+    naked_triple_test.naked_triple_test_box()
+
+
+ 
+    
+  
 
   

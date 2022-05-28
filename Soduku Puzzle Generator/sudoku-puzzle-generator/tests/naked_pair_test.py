@@ -9,7 +9,7 @@ def naked_pair_test_row():
     # Based off of visual testing from https://www.sudokuwiki.org/PuzImages/NP1.png
     test_board = Board()
     
-    test_board.board = np.array( [[4,0,0,0,0,0,9,3,8]
+    test_board.board = np.array([[4,0,0,0,0,0,9,3,8]
                             ,[0,3,2,0,9,4,1,0,0]
                             ,[0,9,5,3,0,0,2,4,0]
                             ,[3,7,0,6,0,9,0,0,4]
@@ -17,7 +17,7 @@ def naked_pair_test_row():
                             ,[6,0,4,7,0,3,0,9,0]
                             ,[9,5,7,0,0,8,3,0,0]
                             ,[0,0,3,9,0,0,4,0,0]
-                            ,[2,4,0,0,3,0,7,0,9] ])
+                            ,[2,4,0,0,3,0,7,0,9]])
 
     # Build the candidate board
     candidates = helpers.build_candidate_board(test_board)

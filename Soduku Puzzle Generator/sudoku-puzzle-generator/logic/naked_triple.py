@@ -34,7 +34,9 @@ def naked_triple_row(board, candidates, row_start):
         if(len(candidates[i]) < 4):
             arr.append(candidates[i])
             arr_indexs.append(i)
-
+    
+    print("\nThe Possiblities are: ", arr)
+    print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -42,8 +44,8 @@ def naked_triple_row(board, candidates, row_start):
             for k in range(j + 1,  len(arr)):
                 union = helpers.union_triple(arr[i],arr[j], arr[k])
             
-                if(len(union) == 3):
-                    triple_indexs = [i, j, k]
+                if(len(union) == 3 and (len(arr[i]) + len(arr[j]) + len(arr[k])  > 3)):
+                    triple_indexs = [arr_indexs[i], arr_indexs[j], arr_indexs[k]]
                     triple = union
                     break
             else:
@@ -53,6 +55,8 @@ def naked_triple_row(board, candidates, row_start):
             continue
         break
 
+    print("\nThe Union found is: ", triple)
+    print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(row_start, row_start + 9):
         if i not in triple_indexs:
@@ -75,6 +79,8 @@ def naked_triple_col(board, candidates, col_start):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
+    print("\nThe Possiblities are: ", arr)
+    print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -82,8 +88,8 @@ def naked_triple_col(board, candidates, col_start):
             for k in range(j + 1,  len(arr)):
                 union = helpers.union_triple(arr[i],arr[j], arr[k])
             
-                if(len(union) == 3):
-                    triple_indexs = [i, j, k]
+                if(len(union) == 3 and (len(arr[i]) + len(arr[j]) + len(arr[k])  > 3)):
+                    triple_indexs = [arr_indexs[i], arr_indexs[j], arr_indexs[k]]
                     triple = union
                     break
             else:
@@ -92,7 +98,9 @@ def naked_triple_col(board, candidates, col_start):
         else:
             continue
         break
-
+    
+    print("\nThe Union found is: ", triple)
+    print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(col_start, 81, 9):
         if i not in triple_indexs:
@@ -115,6 +123,8 @@ def naked_triple_box(board, candidates, box_start):
                 arr.append(candidates[j])
                 arr_indexs.append(j)
 
+    print("\nThe Possiblities are: ", arr)
+    print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -123,7 +133,7 @@ def naked_triple_box(board, candidates, box_start):
                 union = helpers.union_triple(arr[i],arr[j], arr[k])
             
                 if(len(union) == 3 and (len(arr[i]) + len(arr[j]) + len(arr[k]) > 3)):
-                    triple_indexs = [i, j, k]
+                    triple_indexs = [arr_indexs[i], arr_indexs[j], arr_indexs[k]]
                     triple = union
                     break
             else:
@@ -133,6 +143,8 @@ def naked_triple_box(board, candidates, box_start):
             continue
         break
 
+    print("\nThe Union found is: ", triple)
+    print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(box_start, box_start + 3):
         for j in range(i, i + 19, 9):
