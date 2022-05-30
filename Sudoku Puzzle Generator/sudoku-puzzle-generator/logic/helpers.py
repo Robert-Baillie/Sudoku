@@ -101,3 +101,12 @@ def union_pair(arr1,arr2):
 
 def union_triple(arr1,arr2,arr3):
     return list(set().union(arr1,arr2, arr3))
+
+def intersection(arr1,arr2) :
+    return  [ e for e in arr1 if e in arr2 ]
+
+def calculate_box_start(indx):  
+    row = int(indx / 27) * 27
+    col = int((indx % 9) / 3) * 3
+
+    return  row + col

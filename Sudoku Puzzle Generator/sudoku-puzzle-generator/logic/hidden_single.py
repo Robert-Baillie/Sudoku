@@ -27,7 +27,7 @@ def hidden_singles_row(board, candidates, indx):
 
     # Loop over row is done - if the size is one then we can assign the number
     if(len(available) == 1):
-        print("Removing via row hidden single")
+        # print("Removing via row hidden single")
         helpers.set_available(board, candidates, indx, available)
         return True
 
@@ -46,7 +46,7 @@ def hidden_singles_col(board, candidates, indx):
     
   
     if(len(available) == 1):
-        print("Removing via column hidden single")
+        # print("Removing via column hidden single")
         helpers.set_available(board, candidates, indx, available)
         return True
 
@@ -71,6 +71,6 @@ def hidden_singles_box(board, candidates, indx):
                         available = np.delete(available, np.where(available == candidates[k][j]))
 
     if(len(available) == 1):
-        print("Removing via box hidden single")
+        # print("Removing via box hidden single")
         helpers.set_available(board, candidates, indx, available)
         return True

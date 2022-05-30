@@ -22,7 +22,7 @@ class Extractor:
 
         #Remove a slot whilst the uniqueness count of the board is 1
         while(UniqueSolver.get_solution_count(bo) == 1):
-            board = bo.board
+            board = bo.board.copy()
             
             # Get a slot from the board and remove it
             slot_to_remove = np.random.choice(slots_remaining)

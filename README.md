@@ -1,2 +1,2 @@
-# Soduku
- Soduku Board Generator
+# Sudoku
+ Sudoku Board Generator
