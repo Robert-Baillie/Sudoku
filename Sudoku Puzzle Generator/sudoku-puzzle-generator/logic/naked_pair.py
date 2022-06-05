@@ -36,8 +36,8 @@ def naked_pair_row(board, candidates, row_start):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - double loop (pair) through the loop and union the set
     # If the set union is length 2, then we have our naked pair values
     for i in range(len(arr) - 1):
@@ -45,7 +45,7 @@ def naked_pair_row(board, candidates, row_start):
             union = helpers.union_pair(arr[i],arr[j])
             # Disregard any unions where both sets are length of 1 - this is not desired
             if(len(union) == 2 and (len(arr[i]) + len(arr[j]) > 2)):
-                print(arr[i], arr[j])
+                #print(arr[i], arr[j])
                 pair_indexs = [arr_indexs[i], arr_indexs[j]]
                 pair = union
                 break
@@ -53,8 +53,8 @@ def naked_pair_row(board, candidates, row_start):
             continue
         break
 
-    print("\nThe Union found is: ", pair)
-    print("\nThe Indexes of these are:", pair_indexs)
+    #print("\nThe Union found is: ", pair)
+    #print("\nThe Indexes of these are:", pair_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(row_start, row_start + 9):
         if i not in pair_indexs:
@@ -79,8 +79,8 @@ def naked_pair_col(board, candidates, col_start):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - double loop (pair) through the loop and union the set
     # If the set union is length 2, then we have our naked pair values
     for i in range(len(arr) - 1):
@@ -88,7 +88,7 @@ def naked_pair_col(board, candidates, col_start):
             union = helpers.union_pair(arr[i],arr[j])
             
             if(len(union) == 2 and (len(arr[i]) + len(arr[j]) > 2)):
-                print(arr[i], arr[j])
+                #print(arr[i], arr[j])
                 pair_indexs = [arr_indexs[i], arr_indexs[j]]
                 pair = union
                 break
@@ -96,8 +96,8 @@ def naked_pair_col(board, candidates, col_start):
             continue
         break
 
-    print("\nThe Union found is: ", pair)
-    print("\nThe Indexes of these are:", pair_indexs)
+    #print("\nThe Union found is: ", pair)
+    #print("\nThe Indexes of these are:", pair_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(col_start, 81, 9):
         if i not in pair_indexs:
@@ -123,8 +123,8 @@ def naked_pair_box(board, candidates, box_start):
                 arr.append(candidates[j])
                 arr_indexs.append(j)
 
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - double loop (pair) through the loop and union the set
     # If the set union is length 2, then we have our naked pair values
     for i in range(len(arr) - 1):
@@ -132,7 +132,7 @@ def naked_pair_box(board, candidates, box_start):
             union = helpers.union_pair(arr[i],arr[j])
             
             if(len(union) == 2 and (len(arr[i]) + len(arr[j]) > 2)):
-                print(arr[i], arr[j])
+                #print(arr[i], arr[j])
                 pair_indexs = [arr_indexs[i], arr_indexs[j]]
                 pair = union
                 break

@@ -5,14 +5,16 @@ import logic.helpers as helpers
 def pointing_solver(board, candidates):
 
     #Rows
-    for i in range(0,81,9):
+    for i in range(0,81,3):
         pointing_solver_row(board, candidates, i)
             
         
 
     #Cols
-    #for i in range(0, 9):
-    #    pointing_solver_col(board, candidates, i)
+    for i in range(0, 9):
+        pointing_solver_col(board, candidates, i)
+        pointing_solver_col(board, candidates, i+27)
+        pointing_solver_col(board, candidates, i+54)
 
 
 def pointing_solver_row(board, candidates, indx):
@@ -46,8 +48,8 @@ def pointing_solver_row(board, candidates, indx):
             if ((j not in row_index) and len(candidates[j]) > 1):
                 other_candidates.append(candidates[j])
 
-    print("\nOther candidates: ", other_candidates)
-    print("\nPairs to check before: ", pair_to_check)
+    ##print("\nOther candidates: ", other_candidates)
+    ##print("\nPairs to check before: ", pair_to_check)
     # Pair check - loop through the other candidates - if we find it in any list
     pairs = pair_to_check.copy()
     triples = triple_to_check.copy()
@@ -70,11 +72,11 @@ def pointing_solver_row(board, candidates, indx):
 
     # Have our pair and triple
     if(len(pairs) > 0):
-        print("\nOur pair is: ", pairs)
+        #print("\nOur pair is: ", pairs)
         #Loop over the whole row
-        print("Index is: ", indx)
+        #print("Index is: ", indx)
         row_start = int((indx / 9)) * 9
-        print("Row Start is: ", row_start)
+        #print("Row Start is: ", row_start)
 
 
         for i in range(row_start, row_start + 9):
@@ -83,7 +85,7 @@ def pointing_solver_row(board, candidates, indx):
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == pairs[j]))
 
     if(len(triples) > 0):
-        print("\nOur triple is: ", triples)
+        #print("\nOur triple is: ", triples)
         #Loop over the whole row
         row_start = int((indx / 9)) * 9
 
@@ -124,8 +126,8 @@ def pointing_solver_col(board, candidates, indx):
             if ((j not in col_index) and len(candidates[j]) > 1):
                 other_candidates.append(candidates[j])
 
-    print("\nOther candidates: ", other_candidates)
-    print("\nTriples to check before: ", triple_to_check)
+    #print("\nOther candidates: ", other_candidates)
+    #print("\nTriples to check before: ", triple_to_check)
     # Pair check - loop through the other candidates - if we find it in any list
     pairs = pair_to_check.copy()
     triples = triple_to_check.copy()
@@ -148,11 +150,11 @@ def pointing_solver_col(board, candidates, indx):
 
     # Have our pair and triple
     if(len(pairs) > 0):
-        print("\nOur pair is: ", pairs)
+        #print("\nOur pair is: ", pairs)
         #Loop over the whole row
-        print("Index is: ", indx)
+        #print("Index is: ", indx)
         col_start = int((indx % 9))
-        print("Col Start is: ", col_start)
+        #print("Col Start is: ", col_start)
 
 
         for i in range(col_start,81, 9):
@@ -161,7 +163,7 @@ def pointing_solver_col(board, candidates, indx):
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == pairs[j]))
 
     if(len(triples) > 0):
-        print("\nOur triple is: ", triples)
+        #print("\nOur triple is: ", triples)
         #Loop over the whole row
         row_start = int((indx / 9)) * 9
 

@@ -65,5 +65,5 @@ def hidden_pair_test_box():
 
     # helpers.print_candidate_board(test_candidates) #- visual confirmation
     hidden_pair.hidden_pair_box(test_board, test_candidates, 27)
-    hidden_pair.hidden_pair_row(test_board, test_candidates, 36)
+    #hidden_pair.hidden_pair_row(test_board, test_candidates, 36)
     helpers.print_candidate_board(test_candidates)

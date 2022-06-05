@@ -13,13 +13,13 @@ def hidden_triple(board, candidates):
         
 
     #Cols
-    #for i in range(0, 9):
-    #    hidden_pair_col(board, candidates, i)
+    for i in range(0, 9):
+        hidden_triple_col(board, candidates, i)
 
     #Boxes
-    #for i in range(0, 81, 27):
-    #    for j in range(i, i + 9, 3):
-    #        hidden_pair_box(board, candidates, j)
+    for i in range(0, 81, 27):
+        for j in range(i, i + 9, 3):
+            hidden_triple_box(board, candidates, j)
 
 
 def hidden_triple_row(board, candidates, row_start):
@@ -38,19 +38,19 @@ def hidden_triple_row(board, candidates, row_start):
                 num = candidates[i][j]
                 index_array[num - 1].append(i)
 
-    print("The index array is: ", index_array)
+    ##print("The index array is: ", index_array)
     # We are testing triple - do not need arrays longer than 3
     index_to_compare = []
     number_index = []
 
     for i in range(len(index_array)):
-        if(len(index_array[i]) > 0 and len(index_array[i]) < 4):
+        if(len(index_array[i]) > 1 and len(index_array[i]) < 4):
             # Suitable - push to comparison list
             index_to_compare.append(index_array[i])
             number_index.append(i)
 
-    print("\nThe passing index arrays are: ", index_to_compare)
-    print("\nThe number indexes are: ", number_index)
+    #print("\nThe passing index arrays are: ", index_to_compare)
+    #print("\nThe number indexes are: ", number_index)
     # Double (pair) loop through the index to compare loop - if the union is length 2 then we have found the indexs which contain our hidden double
     index_triple = []
     numbers = []
@@ -73,14 +73,14 @@ def hidden_triple_row(board, candidates, row_start):
             continue
         break
 
-    print("\nThe Index triple is: ", index_triple)
-    print("\nThe numbers are: ", numbers)
+    #print("\nThe Index triple is: ", index_triple)
+    #print("\nThe numbers are: ", numbers)
     # Remove the numbers
     # Loop through the whole row - if if isnt in the triple indexs then remove the candidates
     for i in range(row_start, row_start + 9):
         if i in index_triple:
             # Loop through the row - for the indexs we have numbers set them as the candidate
-            print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
+            #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
 
 
@@ -100,19 +100,19 @@ def hidden_triple_col(board, candidates, col_start):
                 num = candidates[i][j]
                 index_array[num - 1].append(i)
 
-    print("The index array is: ", index_array)
+    #print("The index array is: ", index_array)
     # We are testing triple - do not need arrays longer than 3
     index_to_compare = []
     number_index = []
 
     for i in range(len(index_array)):
-        if(len(index_array[i]) > 0 and len(index_array[i]) < 4):
+        if(len(index_array[i]) > 1 and len(index_array[i]) < 4):
             # Suitable - push to comparison list
             index_to_compare.append(index_array[i])
             number_index.append(i)
 
-    print("\nThe passing index arrays are: ", index_to_compare)
-    print("\nThe number indexes are: ", number_index)
+    #print("\nThe passing index arrays are: ", index_to_compare)
+    #print("\nThe number indexes are: ", number_index)
     # Double (pair) loop through the index to compare loop - if the union is length 2 then we have found the indexs which contain our hidden double
     index_triple = []
     numbers = []
@@ -135,14 +135,14 @@ def hidden_triple_col(board, candidates, col_start):
             continue
         break
 
-    print("\nThe Index triple is: ", index_triple)
-    print("\nThe numbers are: ", numbers)
+    #print("\nThe Index triple is: ", index_triple)
+    #print("\nThe numbers are: ", numbers)
     # Remove the numbers
     # Loop through the whole row - if if isnt in the triple indexs then remove the candidates
     for i in range(col_start, 81, 9):
         if i in index_triple:
             # Loop through the row - for the indexs we have numbers set them as the candidate
-            print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
+            #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
 
 
@@ -163,19 +163,19 @@ def hidden_triple_box(board, candidates, box_start):
                     num = candidates[j][k]
                     index_array[num - 1].append(j)
 
-    print("The index array is: ", index_array)
+    #print("The index array is: ", index_array)
     # We are testing triple - do not need arrays longer than 3
     index_to_compare = []
     number_index = []
 
     for i in range(len(index_array)):
-        if(len(index_array[i]) > 0 and len(index_array[i]) < 4):
+        if(len(index_array[i]) > 1 and len(index_array[i]) < 4):
             # Suitable - push to comparison list
             index_to_compare.append(index_array[i])
             number_index.append(i)
 
-    print("\nThe passing index arrays are: ", index_to_compare)
-    print("\nThe number indexes are: ", number_index)
+    #print("\nThe passing index arrays are: ", index_to_compare)
+    #print("\nThe number indexes are: ", number_index)
     # Double (pair) loop through the index to compare loop - if the union is length 2 then we have found the indexs which contain our hidden double
     index_triple = []
     numbers = []
@@ -198,14 +198,14 @@ def hidden_triple_box(board, candidates, box_start):
             continue
         break
 
-    print("\nThe Index triple is: ", index_triple)
-    print("\nThe numbers are: ", numbers)
+    #print("\nThe Index triple is: ", index_triple)
+    #print("\nThe numbers are: ", numbers)
     # Remove the numbers
     # Loop through the whole row - if if isnt in the triple indexs then remove the candidates
     for i in range(box_start, box_start + 3):
         for j in range(i, i + 19, 9):
             if j in index_triple:
                 # Loop through the row - for the indexs we have numbers set them as the candidate
-                print("The intersection is: ", helpers.intersection(numbers,candidates[j]))
+                #print("The intersection is: ", helpers.intersection(numbers,candidates[j]))
                 candidates[j] = helpers.intersection(numbers,candidates[j])
             
