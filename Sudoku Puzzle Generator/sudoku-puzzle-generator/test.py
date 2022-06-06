@@ -59,7 +59,7 @@ if __name__ == '__main__':
   # pointing_tests.pointing_pair_whole()
   #pointing_tests.pointing_triple_col()
 
-  for i in range(10):
+  for i in range(100000):
 
     b = Board()
     b.initialise_board()
@@ -79,108 +79,177 @@ if __name__ == '__main__':
     print("\nThe candidate Board: \n")
     helpers.print_candidate_board(candidates)
 
-    for loop in range(5):
+    for loop in range(3):
 
-      
       # Single Checks
-      for j in range(81):
-          hidden_single.hidden_singles(b, candidates, j)
-          naked_single.naked_single(b,candidates,j)
+      print("\n\n--------------------------------------------------------------------------------\nStep 1 : Hidden Single Checks\n\n")
 
-      print("\nThe candidate Board after single checks: \n")
+      print("\nThe candidate Board before hidden single checks: \n")
       helpers.print_candidate_board(candidates)
 
-      print("\nThe  Board after single checks: \n")
+
+      change_made = True
+      # Hidden
+      while(change_made):
+        change_made = False
+        for j in range(81):
+          check = hidden_single.hidden_singles(b, candidates, j)
+          if(check):
+            change_made = True
+
+      print("\nThe candidate Board after hidden single checks: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after hidden single checks: \n")
       b.print_board()
+      
+      
+
+      print("\n\n--------------------------------------------------------------------------------\nStep 2 : Naked Single Checks\n\n")
+      change_made = True
+      # Single
+      while(change_made):
+        change_made = False
+        for j in range(81):
+          check = naked_single.naked_single(b,candidates,j)
+          if(check):
+            change_made = True
+
+
+      print("\nThe candidate Board after naked single checks: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after naked single checks: \n")
+      b.print_board()
+
 
       if(b.empty_slot_count() == 0):
         print("\nThe Board has been completed, breaking the loop. Stage: Single Checks, Loop: ", loop)
         break
         
 
-      # Naked Pair Check
-      naked_pair.naked_pair(b, candidates)
-      
+      # Hidden Pair Checks
+      print("\n\n--------------------------------------------------------------------------------\nStep 3 : Hidden Pair Checks\n\n")
 
-
-      # Naked Single Check to fill in blanks
-      for j in range(81):
-          naked_single.naked_single(b,candidates,j)
-
-
-      print("\nThe Board after naked pair checks")
-      b.print_board()
-
-      print("\nThe candidate Board after naked single checks: \n")
-      helpers.print_candidate_board(candidates)
-
-      # Hidden Pair Check
       hidden_pair.hidden_pair(b,candidates)
 
-      
-      # Naked Single Check to fill in blanks
-      for j in range(81):
-          naked_single.naked_single(b,candidates,j)
-
-      print("\nThe Board after hidden pair checks")
+      print("\nThe candidate Board after hidden pair checks: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after hidden pair checkss: \n")
       b.print_board()
 
-      print("\nThe candidate Board after hidden pair: \n")
-      helpers.print_candidate_board(candidates)
+      # Naked Pair Checks
+      print("\n\n--------------------------------------------------------------------------------\nStep 4 : Naked Pair Checks\n\n")
 
-      
-        
+      naked_pair.naked_pair(b, candidates)
+
+      print("\nThe candidate Board after naked pair checks: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after naked pair checks: \n")
+      b.print_board()
+
+    #   # All Naked pair checks need to then be tested with a naked single to fill out candidates
+
+      change_made = True
+      # Single
+      while(change_made):
+        change_made = False
+        for j in range(81):
+          check = naked_single.naked_single(b,candidates,j)
+          if(check):
+            change_made = True
+
+      print("\nThe candidate Board after naked pair checks - single fillout: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after naked pair checks - single fillout:: \n")
+      b.print_board()
+
       if(b.empty_slot_count() == 0):
-        print("\nThe Board has been completed, breaking the loop. Stage: Naked/Hidden Pair Checks, Loop: ", loop)
+        print("\nThe Board has been completed, breaking the loop. Stage: Pair Checks, Loop: ", loop)
         break
 
-    
-    # Naked Triple Check
+      
+      print("\n\n--------------------------------------------------------------------------------\nStep 5 : Hidden Triple Checks\n\n")
+
+      hidden_triple.hidden_triple(b, candidates)
+
+      print("\nThe candidate Board after hidden triple checks: \n")
+      helpers.print_candidate_board(candidates)
+                
+      print("\nThe  Board after hidden triple checks: \n")
+      b.print_board()
+
+      print("\n\n--------------------------------------------------------------------------------\nStep 6 : Naked Triple Checks\n\n")
+
       naked_triple.naked_triple(b, candidates)
 
-      # Naked Single Check to fill in blanks
-      for j in range(81):
-          naked_single.naked_single(b,candidates,j)
-
-          
-      print("\nThe Board after naked triple checks")
+      print("\nThe candidate Board after hidden triple checks: \n")
+      helpers.print_candidate_board(candidates)
+                
+      print("\nThe  Board after hidden triple checks: \n")
       b.print_board()
 
-      print("\nThe candidate Board after naked triple checks: \n")
+     # All Naked pair checks need to then be tested with a naked single to fill out candidates
+
+      change_made = True
+      # Single
+      while(change_made):
+        change_made = False
+        for j in range(81):
+          check = naked_single.naked_single(b,candidates,j)
+          if(check):
+            change_made = True
+
+      print("\nThe candidate Board after naked pair checks - single fillout: \n")
       helpers.print_candidate_board(candidates)
-
-      # Hidden Triple Check
-      hidden_triple.hidden_triple(b,candidates)
-
-
-      # Naked Single Check to fill in blanks
-      for j in range(81):
-          naked_single.naked_single(b,candidates,j)
-
-      print("\nThe Board after hidden Triple checks")
+            
+      print("\nThe  Board after naked pair checks - single fillout:: \n")
       b.print_board()
-
-      print("\nThe candidate Board after hidden Triple: \n")
-      helpers.print_candidate_board(candidates)
-
-      
-
 
       if(b.empty_slot_count() == 0):
-        print("\nThe Board has been completed, breaking the loop. Stage: Naked/Hidden Triple Checks, Loop: ", loop)
+        print("\nThe Board has been completed, breaking the loop. Stage: Triple Checks, Loop: ", loop)
         break
 
 
-    # Pointing Tests
-      pointing_solver.pointing_solver(b,candidates)
 
-      # Naked Single Check to fill in blanks
-      for j in range(81):
-          naked_single.naked_single(b,candidates,j)
+      print("\n\n--------------------------------------------------------------------------------\nStep 7 : Pointing Checks\n\n")
+
+      pointing_solver.pointing_solver(b, candidates)
+
+      print("\nThe candidate Board after pointing checks: \n")
+      helpers.print_candidate_board(candidates)
+                
+      print("\nThe  Board after pointing checks: \n")
+      b.print_board()
+      
+      # All Naked pair checks need to then be tested with a naked single to fill out candidates
+
+      change_made = True
+      
+      while(change_made):
+        change_made = False
+        for j in range(81):
+          check = naked_single.naked_single(b,candidates,j)
+          if(check):
+            change_made = True
+
+      print("\nThe candidate Board after Pointing Checks - single fillout: \n")
+      helpers.print_candidate_board(candidates)
+            
+      print("\nThe  Board after Pointing Checks - single fillout:: \n")
+      b.print_board()
 
       if(b.empty_slot_count() == 0):
         print("\nThe Board has been completed, breaking the loop. Stage: Pointing Checks, Loop: ", loop)
         break
+
+
+    if(b.empty_slot_count() != 0):
+      print("\nThe board could not be completed in 3 iterations.")
+   
     
   
 

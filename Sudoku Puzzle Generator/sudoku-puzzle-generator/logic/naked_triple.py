@@ -31,12 +31,12 @@ def naked_triple_row(board, candidates, row_start):
     triple = []
     for i in range(row_start, row_start + 9):
         # Triple - dont care for candidate entries with more than 3 - by definition it would not be a naked pair
-        if(len(candidates[i]) < 4):
+        if(len(candidates[i]) < 4 and len(candidates[i]) > 1):
             arr.append(candidates[i])
             arr_indexs.append(i)
     
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -55,8 +55,8 @@ def naked_triple_row(board, candidates, row_start):
             continue
         break
 
-    print("\nThe Union found is: ", triple)
-    print("\nThe Indexes of these are:", triple_indexs)
+    #print("\nThe Union found is: ", triple)
+    #print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(row_start, row_start + 9):
         if i not in triple_indexs:
@@ -75,12 +75,12 @@ def naked_triple_col(board, candidates, col_start):
     triple = []
     for i in range(col_start, 81, 9):
         # Triple - dont care for candidate entries with more than 3 - by definition it would not be a naked pair
-        if(len(candidates[i]) < 4):
+        if(len(candidates[i]) < 4 and len(candidates[i]) > 1):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -99,8 +99,8 @@ def naked_triple_col(board, candidates, col_start):
             continue
         break
     
-    print("\nThe Union found is: ", triple)
-    print("\nThe Indexes of these are:", triple_indexs)
+    #print("\nThe Union found is: ", triple)
+    #print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(col_start, 81, 9):
         if i not in triple_indexs:
@@ -119,12 +119,12 @@ def naked_triple_box(board, candidates, box_start):
     for i in range(box_start, box_start + 3):
         for j in range(i, i + 19, 9):
             # Triple - dont care for candidate entries with more than 3 - by definition it would not be a naked pair
-            if(len(candidates[j]) < 4):
+            if(len(candidates[j]) < 4 and len(candidates[j]) > 1):
                 arr.append(candidates[j])
                 arr_indexs.append(j)
 
-    print("\nThe Possiblities are: ", arr)
-    print("\nThe arr indexs are: ", arr_indexs)
+    #print("\nThe Possiblities are: ", arr)
+    #print("\nThe arr indexs are: ", arr_indexs)
     # Array of possiblities has been built - triple loop (three) through the loop and union the set
     # If the set union is length 3, then we have our triple pair values
     for i in range(len(arr) - 2):
@@ -143,8 +143,8 @@ def naked_triple_box(board, candidates, box_start):
             continue
         break
 
-    print("\nThe Union found is: ", triple)
-    print("\nThe Indexes of these are:", triple_indexs)
+    #print("\nThe Union found is: ", triple)
+    #print("\nThe Indexes of these are:", triple_indexs)
     # Loop through the whole row - if if isnt in the pair indexs then remove the two candidates
     for i in range(box_start, box_start + 3):
         for j in range(i, i + 19, 9):

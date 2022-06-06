@@ -41,18 +41,20 @@ def remove_from_candidates(board, candidates, indx, row, col, num):
     for row_ind in range(9 * row, 9 * row +9):
         if(row_ind != indx):
             candidates[row_ind] = np.delete(candidates[row_ind], np.where(candidates[row_ind] == num))
-            # arr = candidates[row_ind]
-            # arr = np.delete(arr, np.where(arr == num))
-            # candidates[row_ind] = arr
+
+            if(len(candidates[row_ind]) == 1 and board.board[int( indx / 9)][int(indx % 9)] == 0):
+                print("\n We should set: ", candidates[row_ind], " at index: ", row_ind)
+                #set_available(board,candidates,row_ind,candidates[row_ind])
+            
+            
            
 
     # Remove from col
     for col_ind in range(col, 81, 9):
         if(col_ind != indx):
             candidates[col_ind] = np.delete(candidates[col_ind], np.where(candidates[col_ind] == num))
-            # arr = candidates[col_ind]
-            # arr = np.delete(arr, np.where(arr == num))
-            # candidates[col_ind] = arr
+            
+            
 
     # Remove from box
     box_row_start = int((row / 3)) * 3
@@ -63,19 +65,16 @@ def remove_from_candidates(board, candidates, indx, row, col, num):
     for box_ind in range(start, end):
         if(box_ind != indx):
             candidates[box_ind] = np.delete(candidates[box_ind], np.where(candidates[box_ind] == num))
-            # arr = candidates[box_ind]
-            # arr = np.delete(arr, np.where(arr == num))
-            # candidates[box_ind] = arr
+            
+
         if(box_ind + 9 != indx):
             candidates[box_ind + 9] = np.delete(candidates[box_ind + 9], np.where(candidates[box_ind + 9] == num))
-            # arr = candidates[box_ind + 9]
-            # arr = np.delete(arr, np.where(arr == num))
-            # candidates[box_ind + 9] = arr
+            
+            
         if(box_ind + 18 != indx):
             candidates[box_ind + 18] = np.delete(candidates[box_ind + 18], np.where(candidates[box_ind + 18] == num))
-            # arr = candidates[box_ind + 18]
-            # arr = np.delete(arr, np.where(arr == num))
-            # candidates[box_ind + 18] = arr
+            
+
 
 
 def print_candidate_board(candidates):
@@ -95,6 +94,13 @@ def print_candidate_board(candidates):
         print((8 - count) * " ", end = "")
         
         
+def candidate_board_error(candidates):
+    for i in range(len(candidates)):
+        if(len(candidates[i]) == 0):
+            return True
+    return False
+        
+
 
 def union_pair(arr1,arr2):
     return list(set().union(arr1,arr2))

@@ -38,7 +38,7 @@ def hidden_triple_row(board, candidates, row_start):
                 num = candidates[i][j]
                 index_array[num - 1].append(i)
 
-    ##print("The index array is: ", index_array)
+    #print("The index array is: ", index_array)
     # We are testing triple - do not need arrays longer than 3
     index_to_compare = []
     number_index = []

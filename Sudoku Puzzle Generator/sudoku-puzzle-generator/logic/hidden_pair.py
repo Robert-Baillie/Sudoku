@@ -6,7 +6,6 @@ import logic.helpers as helpers
 
 def hidden_pair(board, candidates):
     # We are not passed an index - we will loop through homes instead
-
     #Rows
     for i in range(0,81,9):
         hidden_pair_row(board, candidates, i)
@@ -80,6 +79,7 @@ def hidden_pair_row(board, candidates, row_start):
             # for j in range(len(numbers)):
             #     if numbers[j] in candidates[i]:
             #         candidates[i] = np.delete(candidates[i], np.where(candidates[i] == numbers[j]))
+    
 
 
 
@@ -131,6 +131,7 @@ def hidden_pair_col(board, candidates, col_start):
         if i in index_pair:
           
             candidates[i] = numbers
+    
             
 
 
@@ -185,3 +186,4 @@ def hidden_pair_box(board, candidates, box_start):
             if j in index_pair:
           
                 candidates[j] = numbers
+    

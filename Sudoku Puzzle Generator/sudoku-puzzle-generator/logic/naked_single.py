@@ -7,3 +7,6 @@ def naked_single(board, candidates, indx):
 
     if(len(candidates[indx]) == 1 and board.board[row][col] == 0):
         helpers.set_available(board, candidates, indx, candidates[indx])
+        return True
+    
+    return False

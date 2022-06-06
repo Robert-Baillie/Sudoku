@@ -1,6 +1,6 @@
 import numpy as np
 import logic.helpers as helpers
-
+import logic.naked_single as naked_single
 
 def naked_pair(board, candidates):
     # We are not passed an index - we will loop through homes instead
@@ -18,6 +18,7 @@ def naked_pair(board, candidates):
     #Boxes
     for i in range(0, 81, 27):
         for j in range(i, i + 9, 3):
+            #print("Box Index checking: ", j)
             naked_pair_box(board, candidates, j)
 
 
@@ -32,7 +33,7 @@ def naked_pair_row(board, candidates, row_start):
     pair = []
     for i in range(row_start, row_start + 9):
         # Pair - dont care for candidate entries with more than 2 - by definition it would not be a naked pair
-        if(len(candidates[i]) < 3):
+        if(len(candidates[i]) == 2):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
@@ -63,6 +64,9 @@ def naked_pair_row(board, candidates, row_start):
                 #if j in candidates[i]:
                 if pair[j] in candidates[i]:
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == pair[j]))
+                    if(len(candidates[i]) == 1):
+                        naked_single.naked_single(board,candidates,i)
+
                     
                 
 def naked_pair_col(board, candidates, col_start):
@@ -75,7 +79,8 @@ def naked_pair_col(board, candidates, col_start):
     pair = []
     for i in range(col_start, 81, 9):
         # Pair - dont care for candidate entries with more than 2 - by definition it would not be a naked pair
-        if(len(candidates[i]) < 3):
+        # if(len(candidates[i]) < 3):
+        if(len(candidates[i]) == 2):
             arr.append(candidates[i])
             arr_indexs.append(i)
 
@@ -105,6 +110,8 @@ def naked_pair_col(board, candidates, col_start):
             for j in range(len(pair)):
                 if pair[j] in candidates[i]:
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == pair[j]))
+                    if(len(candidates[i]) == 1):
+                        naked_single.naked_single(board,candidates,i)
 
 
 def naked_pair_box(board, candidates, box_start):
@@ -119,7 +126,7 @@ def naked_pair_box(board, candidates, box_start):
         for j in range(i, i + 19, 9):
 
             # Pair - dont care for candidate entries with more than 2 - by definition it would not be a naked pair
-            if(len(candidates[j]) < 3):
+            if(len(candidates[j]) == 2):
                 arr.append(candidates[j])
                 arr_indexs.append(j)
 
@@ -148,3 +155,5 @@ def naked_pair_box(board, candidates, box_start):
                 for k in range(len(pair)):
                     if pair[k] in candidates[j]:
                         candidates[j] = np.delete(candidates[j], np.where(candidates[j] == pair[k]))
+                        if(len(candidates[j]) == 1):
+                            naked_single.naked_single(board,candidates,j)

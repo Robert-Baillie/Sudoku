@@ -5,11 +5,12 @@ import logic.helpers as helpers
 def pointing_solver(board, candidates):
 
     #Rows
+    #print("\nROW\n")
     for i in range(0,81,3):
         pointing_solver_row(board, candidates, i)
             
         
-
+    #print("\nCOL\n")
     #Cols
     for i in range(0, 9):
         pointing_solver_col(board, candidates, i)
@@ -49,7 +50,6 @@ def pointing_solver_row(board, candidates, indx):
                 other_candidates.append(candidates[j])
 
     ##print("\nOther candidates: ", other_candidates)
-    ##print("\nPairs to check before: ", pair_to_check)
     # Pair check - loop through the other candidates - if we find it in any list
     pairs = pair_to_check.copy()
     triples = triple_to_check.copy()
@@ -127,7 +127,7 @@ def pointing_solver_col(board, candidates, indx):
                 other_candidates.append(candidates[j])
 
     #print("\nOther candidates: ", other_candidates)
-    #print("\nTriples to check before: ", triple_to_check)
+    ##print("\nTriples to check before: ", triple_to_check)
     # Pair check - loop through the other candidates - if we find it in any list
     pairs = pair_to_check.copy()
     triples = triple_to_check.copy()
@@ -165,7 +165,7 @@ def pointing_solver_col(board, candidates, indx):
     if(len(triples) > 0):
         #print("\nOur triple is: ", triples)
         #Loop over the whole row
-        row_start = int((indx / 9)) * 9
+        col_start = int((indx % 9))
 
         for i in range(col_start,81, 9):
             if((i not in col_index)):
