@@ -15,13 +15,9 @@ class Board:
                     [0,0,0,0,0,0,0,0,0]])
 
         self.puzzle_board = None
+        self.complete_board = None
+        self.puzzle_string = None
         
-        # Fill in the diagonals
-        #self.initialise_board()
-
-        
-        # Fill in the rest recursively
-        #self.fill_board()
     
 
 

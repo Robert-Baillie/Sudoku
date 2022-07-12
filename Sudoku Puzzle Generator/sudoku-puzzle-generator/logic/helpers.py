@@ -119,3 +119,30 @@ def calculate_box_start(indx):
     col = int((indx % 9) / 3) * 3
 
     return  row + col
+
+
+
+def assign_board_string(puzzle_board, complete_board):
+    board = ''
+
+    for i in range(9):
+        for j in range(9):
+            num = puzzle_board[i][j]
+            board += get_number_letter(num)
+
+    for i in range(9):
+        for j in range(9):
+            num = complete_board[i][j]
+            board += get_number_letter(num)
+
+    return board
+
+
+
+    
+
+def get_number_letter(num):
+    char = chr(num + 96)
+    if(num == 0): 
+        char = 'x'
+    return char
