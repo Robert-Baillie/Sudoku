@@ -40,6 +40,13 @@ def hidden_singles_row(board, candidates, indx):
                         available = np.delete(available, np.where(available == num))
                         print("Available after: ", available)
 
+                        # I messed up and used different array types - sometimes causes a strange error - double check
+                        if(candidates[i][j] in available):
+                            num = candidates[i][j]
+                            print("For some reason it didnt delete this number, attempting again: ", num)
+                            available = np.delete(available, np.where(available == num))
+                            print("Available after: ", available)
+
     # Loop over row is done - if the size is one then we can assign the number
     if(len(available) == 1 and board.board[row][col] == 0):
         print("Removing via row hidden single: ", available[0], " at index: ", indx)
@@ -68,6 +75,13 @@ def hidden_singles_col(board, candidates, indx):
                         print("Available before: ", available, " we are deleting: ", num)
                         available = np.delete(available, np.where(available == num))
                         print("Available after: ", available)
+
+                        # I messed up and used different array types - sometimes causes a strange error - double check
+                        if(candidates[i][j] in available):
+                            num = candidates[i][j]
+                            print("For some reason it didnt delete this number, attempting again: ", num)
+                            available = np.delete(available, np.where(available == num))
+                            print("Available after: ", available)
     
   
     if(len(available) == 1 and board.board[row][col] == 0):
@@ -104,6 +118,14 @@ def hidden_singles_box(board, candidates, indx):
                         print("Available before: ", available, " we are deleting: ", num)
                         available = np.delete(available, np.where(available == num))
                         print("Available after: ", available)
+
+
+                        # I messed up and used different array types - sometimes causes a strange error - double check
+                        if(candidates[k][j] in available):
+                            num = candidates[k][j]
+                            print("For some reason it didnt delete this number, attempting again: ", num)
+                            available = np.delete(available, np.where(available == num))
+                            print("Available after: ", available)
 
     if(len(available) == 1 and board.board[row][col] == 0):
         print("Removing via box hidden single: ", available[0], " at index: ", indx)

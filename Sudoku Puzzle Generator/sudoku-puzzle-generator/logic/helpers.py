@@ -2,9 +2,12 @@ import numpy as np
 
 # Board Building
 def build_candidate_board(board):
-    one_to_nine = [1,2,3,4,5,6,7,8,9]
+    # one_to_nine = [1,2,3,4,5,6,7,8,9]
+    one_to_nine = np.arange(1,10)
 
     candidates = [None] * 81
+    
+
 
     for i in range(81):
         candidates[i] = one_to_nine
