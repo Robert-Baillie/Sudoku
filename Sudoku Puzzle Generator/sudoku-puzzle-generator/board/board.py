@@ -18,7 +18,7 @@ class Board:
         self.complete_board = None
         self.puzzle_string = None
         self.puzzle_zero_count = 0
-    
+        self.score = 0
 
 
 

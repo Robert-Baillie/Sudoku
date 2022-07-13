@@ -11,8 +11,10 @@ from logic import helpers
 
 if __name__ == '__main__':
 
+
+
     for i in range(100000):
-        satisfactory_board = False
+        
 
         # Step One - Build a board
         board = Board()
@@ -24,8 +26,8 @@ if __name__ == '__main__':
         #Step Two - Extract until non uniqueness
         Extractor.remove_numbers_until_non_uniqueness(board)
 
-        #Half step - if empty count is less than 20 then do nothing - puzzle quality is not adequet
-        if(board.empty_slot_count() > 20):
+        #Half step - if empty count is less than 25 then do nothing - puzzle quality is not adequet
+        if(board.empty_slot_count() > 25):
 
 
             # Only reaches here when true so assign puzzle board

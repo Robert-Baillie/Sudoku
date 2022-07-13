@@ -24,7 +24,8 @@ class DifficultyAssign:
 
     @staticmethod
     def assign_board_difficulty(board, candidates):
-        
+        score = 0
+
         # We will loop five times - as we have not implemented super advanced techniuqes any puzzle that cannot be solved in five loops will count as extreme (or maybe impossible...)
         for loop in range(5):
 
@@ -40,6 +41,7 @@ class DifficultyAssign:
                 for j in range(81):
                     check = hidden_single.hidden_singles(board, candidates, j)
                     if(check):
+                        board.score += 100
                         change_made = True
 
             
@@ -55,7 +57,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(0, loop, board)
+                return DifficultyAssign.assign_difficulty(board)
                     
             """ 
             PAIR CHECKS
@@ -73,7 +75,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(1, loop, board)
+                return DifficultyAssign.assign_difficulty(board)
 
             """ 
             TRIPLE CHECKS
@@ -89,7 +91,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(2, loop, board)
+                return DifficultyAssign.assign_difficulty(board)
 
 
             """ 
@@ -103,7 +105,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(3, loop, board)
+                return DifficultyAssign.assign_difficulty(board)
 
 
 
@@ -122,45 +124,10 @@ class DifficultyAssign:
             for j in range(81):
                 check = naked_single.naked_single(board,candidates,j)
                 if(check):
+                    board.score += 100
                     change_made = True
 
     @staticmethod
-    def assign_difficulty(stage, loop, board):
-        # Could probably do a switch statement
-
-        # Stage 0 - singles. For the first loop assign Easy difficulty, if second assign medium, anymore assign hard
-        if(stage == 0):
-            if(loop == 0):
-                if board.puzzle_zero_count < 35:
-                    return 1
-                else:
-                    return 2
-            elif loop == 1:
-                return 3
-            else:
-                return 4
-
-        # Stage 2 - pairs. if first loop assign as easy/medium depending on the zero count, anymore set as hard
-        if(stage == 1):
-            if(loop == 0):
-                if board.puzzle_zero_count < 35:
-                    return 2
-                else:
-                    return 3
-            else:
-                return 4
-            
-        if(stage ==2):
-            if(loop == 0):
-                if board.puzzle_zero_count < 35:
-                    return 2
-                else:
-                    return 3
-            else:
-                return 4
-
-        if(stage == 3):
-            if(loop == 0):
-                return 3
-            else:
-                return 4
+    def assign_difficulty(board):
+        return board.score
+   

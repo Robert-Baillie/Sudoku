@@ -83,7 +83,12 @@ def hidden_triple_row(board, candidates, row_start):
             #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
 
+    if(len(numbers) > 0):
+        print("Assigning points via hidden triple")
+        board.score +=1650
+        print(board.score)
 
+    
 def hidden_triple_col(board, candidates, col_start):
     # Given a row start
     # Initialise a list of arrays - 2D
@@ -144,6 +149,12 @@ def hidden_triple_col(board, candidates, col_start):
             # Loop through the row - for the indexs we have numbers set them as the candidate
             #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
+
+    if(len(numbers) > 0):
+        print("Assigning points via hidden triple")
+        board.score +=1650
+        print(board.score)
+
 
 
 def hidden_triple_box(board, candidates, box_start):
@@ -208,4 +219,9 @@ def hidden_triple_box(board, candidates, box_start):
                 # Loop through the row - for the indexs we have numbers set them as the candidate
                 #print("The intersection is: ", helpers.intersection(numbers,candidates[j]))
                 candidates[j] = helpers.intersection(numbers,candidates[j])
-            
+    
+    
+    if(len(numbers) > 0):
+        print("Assigning points via hidden triple")
+        board.score +=1650
+        print(board.score)

@@ -66,6 +66,12 @@ def naked_triple_row(board, candidates, row_start):
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == triple[j]))
 
 
+    if(len(triple) > 0):
+        print("Assigning points via naked triple")
+        board.score +=1450
+        print(board.score)
+
+
 
 def naked_triple_col(board, candidates, col_start):
     arr = []
@@ -108,6 +114,11 @@ def naked_triple_col(board, candidates, col_start):
             for j in range(len(triple)):
                 if triple[j] in candidates[i]:
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == triple[j]))
+
+    if(len(triple) > 0):
+        print("Assigning points via naked triple")
+        board.score +=1450
+        print(board.score)
 
 
 def naked_triple_box(board, candidates, box_start):
@@ -153,3 +164,9 @@ def naked_triple_box(board, candidates, box_start):
                 for k in range(len(triple)):
                     if triple[k] in candidates[j]:
                         candidates[j] = np.delete(candidates[j], np.where(candidates[j] == triple[k]))
+
+    if(len(triple) > 0):
+        print("Assigning points via naked triple")
+
+        board.score +=1450
+        print(board.score)

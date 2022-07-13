@@ -67,6 +67,12 @@ def naked_pair_row(board, candidates, row_start):
                     if(len(candidates[i]) == 1):
                         naked_single.naked_single(board,candidates,i)
 
+    if len(pair) > 0:
+        print("Assigning points via naked pair")
+        board.score += 550
+        print(board.score)
+
+
                     
                 
 def naked_pair_col(board, candidates, col_start):
@@ -114,6 +120,11 @@ def naked_pair_col(board, candidates, col_start):
                         naked_single.naked_single(board,candidates,i)
 
 
+    if len(pair) > 0:
+        print("Assigning points via naked pair")
+        board.score += 550
+        print(board.score)
+        
 def naked_pair_box(board, candidates, box_start):
     # We are at the starting index of a box (TL)
     # Build an array on what we are going to test
@@ -157,3 +168,9 @@ def naked_pair_box(board, candidates, box_start):
                         candidates[j] = np.delete(candidates[j], np.where(candidates[j] == pair[k]))
                         if(len(candidates[j]) == 1):
                             naked_single.naked_single(board,candidates,j)
+
+
+    if len(pair) > 0:
+        print("Assigning points via naked pair")
+        board.score += 550
+        print(board.score)

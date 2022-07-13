@@ -80,6 +80,11 @@ def hidden_pair_row(board, candidates, row_start):
             #     if numbers[j] in candidates[i]:
             #         candidates[i] = np.delete(candidates[i], np.where(candidates[i] == numbers[j]))
     
+    if len(numbers) > 0:
+        print("Assigning points via hidden pair")
+        board.score += 1250
+        print(board.score)
+
 
 
 
@@ -132,7 +137,11 @@ def hidden_pair_col(board, candidates, col_start):
           
             candidates[i] = numbers
     
-            
+    if len(numbers) > 0:
+        print("Assigning points via hidden pair")
+        board.score += 1250    
+        print(board.score)
+
 
 
 
@@ -187,3 +196,7 @@ def hidden_pair_box(board, candidates, box_start):
           
                 candidates[j] = numbers
     
+    if len(numbers) > 0:
+        print("Assigning points via hidden pair")
+        board.score += 1250
+        print(board.score)

@@ -20,17 +20,18 @@ class Extractor:
         # Remove the first set of numbers before starting the loop
         cls.remove_numbers(bo, slot_to_remove)
 
-        #Remove a slot whilst the uniqueness count of the board is 1
-        while(UniqueSolver.get_solution_count(bo) == 1):
-            board = bo.board.copy()
+        #Remove a slot whilst the uniqueness count of the board is 1 - do five attempts to create consistently better puzzles
+        for attempt in range(5):
+
+            while(UniqueSolver.get_solution_count(bo) == 1):
+                board = bo.board.copy()
+                
+                # Get a slot from the board and remove it
+                slot_to_remove = np.random.choice(slots_remaining)
+                cls.remove_numbers(bo, slot_to_remove)
             
-            # Get a slot from the board and remove it
-            slot_to_remove = np.random.choice(slots_remaining)
-            cls.remove_numbers(bo, slot_to_remove)
-            
-        
-        
-        bo.board = board
+            bo.board = board
+                
         bo.puzzle_board = board
         
 

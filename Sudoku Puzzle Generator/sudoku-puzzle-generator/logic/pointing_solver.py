@@ -67,6 +67,7 @@ def pointing_solver_row(board, candidates, indx):
             
             if triple_to_check[i] in other_candidates[j]:
                 triples.remove(triple_to_check[i])
+                
                 break
             
 
@@ -78,6 +79,9 @@ def pointing_solver_row(board, candidates, indx):
         row_start = int((indx / 9)) * 9
         #print("Row Start is: ", row_start)
 
+        board.score += 1000
+        print("Assigning points via pointing pair")
+        print(board.score)
 
         for i in range(row_start, row_start + 9):
             if((i not in row_index)):
@@ -88,7 +92,9 @@ def pointing_solver_row(board, candidates, indx):
         #print("\nOur triple is: ", triples)
         #Loop over the whole row
         row_start = int((indx / 9)) * 9
-
+        board.score += 1500
+        print("Assigning points via pointing triple")
+        print(board.score)
         for i in range(row_start, row_start + 9):
             if((i not in row_index)):
                 for j in range(len(triples)):
@@ -155,7 +161,9 @@ def pointing_solver_col(board, candidates, indx):
         #print("Index is: ", indx)
         col_start = int((indx % 9))
         #print("Col Start is: ", col_start)
-
+        print("Assigning points via pointing pair")
+        board.score += 1000
+        print(board.score)
 
         for i in range(col_start,81, 9):
             if((i not in col_index)):
@@ -166,6 +174,9 @@ def pointing_solver_col(board, candidates, indx):
         #print("\nOur triple is: ", triples)
         #Loop over the whole row
         col_start = int((indx % 9))
+        print("Assigning points via pointing triple")
+        board.score += 1500
+        print(board.score)
 
         for i in range(col_start,81, 9):
             if((i not in col_index)):
