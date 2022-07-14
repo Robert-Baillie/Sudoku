@@ -138,7 +138,13 @@ def assign_board_string(puzzle_board, complete_board):
     return board
 
 
+def boards_match(candidates, copy):
+    for i in range(len(candidates)):
+        for j in range(len(candidates[i])):
+            if candidates[i][j] != copy[i][j]:
+                return False
 
+    return True
     
 
 def get_number_letter(num):

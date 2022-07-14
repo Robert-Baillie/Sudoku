@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from board.board import Board
 from construction.uniqueness_solver import UniqueSolver
 
@@ -20,8 +21,8 @@ class Extractor:
         # Remove the first set of numbers before starting the loop
         cls.remove_numbers(bo, slot_to_remove)
 
-        #Remove a slot whilst the uniqueness count of the board is 1 - do five attempts to create consistently better puzzles
-        for attempt in range(5):
+        #Remove a slot whilst the uniqueness count of the board is 1 - do x attempts to create consistently better puzzles
+        for attempt in range(random.randint(2,7)):
 
             while(UniqueSolver.get_solution_count(bo) == 1):
                 board = bo.board.copy()

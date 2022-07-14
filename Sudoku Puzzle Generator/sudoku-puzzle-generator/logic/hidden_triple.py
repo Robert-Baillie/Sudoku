@@ -8,18 +8,37 @@ def hidden_triple(board, candidates):
 
     #Rows
     for i in range(0,81,9):
-        hidden_triple_row(board, candidates, i)
+        copy = candidates.copy()
+        row = hidden_triple_row(board, candidates, i)
+
+        if row and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via hidden triple")
+            board.score += 1650
+            #print(board.score)
             
         
 
     #Cols
     for i in range(0, 9):
-        hidden_triple_col(board, candidates, i)
+        copy = candidates.copy()
+        col = hidden_triple_col(board, candidates, i)
+
+        if col and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via hidden triple")
+            board.score += 1650
+            #print(board.score)
 
     #Boxes
     for i in range(0, 81, 27):
         for j in range(i, i + 9, 3):
-            hidden_triple_box(board, candidates, j)
+            copy = candidates.copy()
+
+            box = hidden_triple_box(board, candidates, j)
+
+            if box and helpers.boards_match(candidates,copy) == False:
+                #print("Assigning points via hidden triple")
+                board.score += 1650
+                #print(board.score)
 
 
 def hidden_triple_row(board, candidates, row_start):
@@ -83,10 +102,12 @@ def hidden_triple_row(board, candidates, row_start):
             #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
 
-    if(len(numbers) > 0):
-        print("Assigning points via hidden triple")
-        board.score +=1650
-        print(board.score)
+
+    if len(numbers) > 0: return True
+    return False
+
+
+   
 
     
 def hidden_triple_col(board, candidates, col_start):
@@ -150,10 +171,8 @@ def hidden_triple_col(board, candidates, col_start):
             #print("The intersection is: ", helpers.intersection(numbers,candidates[i]))
             candidates[i] = helpers.intersection(numbers,candidates[i])
 
-    if(len(numbers) > 0):
-        print("Assigning points via hidden triple")
-        board.score +=1650
-        print(board.score)
+    if len(numbers) > 0: return True
+    return False
 
 
 
@@ -221,7 +240,5 @@ def hidden_triple_box(board, candidates, box_start):
                 candidates[j] = helpers.intersection(numbers,candidates[j])
     
     
-    if(len(numbers) > 0):
-        print("Assigning points via hidden triple")
-        board.score +=1650
-        print(board.score)
+    if len(numbers) > 0: return True
+    return False

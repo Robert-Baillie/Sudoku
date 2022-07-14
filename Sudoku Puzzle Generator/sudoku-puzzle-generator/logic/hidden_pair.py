@@ -8,18 +8,37 @@ def hidden_pair(board, candidates):
     # We are not passed an index - we will loop through homes instead
     #Rows
     for i in range(0,81,9):
-        hidden_pair_row(board, candidates, i)
-            
+        copy = candidates.copy()
+        row = hidden_pair_row(board, candidates, i)
+
+        if row and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via hidden pair ROW")
+            board.score += 1250
+            #print(board.score)
+                
         
 
     #Cols
     for i in range(0, 9):
-        hidden_pair_col(board, candidates, i)
+        copy = candidates.copy()
+        col = hidden_pair_col(board, candidates, i)
+
+        if col and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via hidden pair col")
+            board.score += 1250
+            #print(board.score)
 
     #Boxes
     for i in range(0, 81, 27):
         for j in range(i, i + 9, 3):
-            hidden_pair_box(board, candidates, j)
+            copy = candidates.copy()
+
+            box = hidden_pair_box(board, candidates, j)
+
+            if box and helpers.boards_match(candidates,copy) == False:
+                #print("Assigning points via hidden pair box")
+                board.score += 1250
+                #print(board.score)
 
 
 def hidden_pair_row(board, candidates, row_start):
@@ -80,10 +99,9 @@ def hidden_pair_row(board, candidates, row_start):
             #     if numbers[j] in candidates[i]:
             #         candidates[i] = np.delete(candidates[i], np.where(candidates[i] == numbers[j]))
     
-    if len(numbers) > 0:
-        print("Assigning points via hidden pair")
-        board.score += 1250
-        print(board.score)
+    if len(numbers) > 0: return True
+    return False
+
 
 
 
@@ -137,10 +155,10 @@ def hidden_pair_col(board, candidates, col_start):
           
             candidates[i] = numbers
     
-    if len(numbers) > 0:
-        print("Assigning points via hidden pair")
-        board.score += 1250    
-        print(board.score)
+
+    if len(numbers) > 0: return True
+    return False
+
 
 
 
@@ -196,7 +214,7 @@ def hidden_pair_box(board, candidates, box_start):
           
                 candidates[j] = numbers
     
-    if len(numbers) > 0:
-        print("Assigning points via hidden pair")
-        board.score += 1250
-        print(board.score)
+
+
+    if len(numbers) > 0: return True
+    return False

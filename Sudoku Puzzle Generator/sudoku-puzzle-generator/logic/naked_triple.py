@@ -7,18 +7,38 @@ def naked_triple(board, candidates):
 
     #Rows
     for i in range(0,81,9):
-        naked_triple_row(board, candidates, i)
-            
+        copy = candidates.copy()
+        row = naked_triple_row(board, candidates, i)
+
+        if row and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via naked triple")
+            board.score +=1450
+            #print(board.score)
+                
         
 
     #Cols
     for i in range(0, 9):
-        naked_triple_col(board, candidates, i)
+        copy = candidates.copy()
+        col = naked_triple_col(board, candidates, i)
+
+        if col and helpers.boards_match(candidates,copy) == False:
+            #print("Assigning points via naked triple")
+            board.score +=1450
+            #print(board.score)
 
     #Boxes
     for i in range(0, 81, 27):
         for j in range(i, i + 9, 3):
-            naked_triple_box(board, candidates, j)
+            copy = candidates.copy()
+            box = naked_triple_box(board, candidates, j)
+
+            if box and helpers.boards_match(candidates,copy) == False:
+                #print("Assigning points via naked triple")
+                board.score +=1450
+                #print(board.score)
+
+
 
 
 def naked_triple_row(board, candidates, row_start):
@@ -66,10 +86,9 @@ def naked_triple_row(board, candidates, row_start):
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == triple[j]))
 
 
-    if(len(triple) > 0):
-        print("Assigning points via naked triple")
-        board.score +=1450
-        print(board.score)
+    if(len(triple) > 0): return True
+    return False
+        
 
 
 
@@ -115,10 +134,8 @@ def naked_triple_col(board, candidates, col_start):
                 if triple[j] in candidates[i]:
                     candidates[i] = np.delete(candidates[i], np.where(candidates[i] == triple[j]))
 
-    if(len(triple) > 0):
-        print("Assigning points via naked triple")
-        board.score +=1450
-        print(board.score)
+    if(len(triple) > 0): return True
+    return False
 
 
 def naked_triple_box(board, candidates, box_start):
@@ -165,8 +182,5 @@ def naked_triple_box(board, candidates, box_start):
                     if triple[k] in candidates[j]:
                         candidates[j] = np.delete(candidates[j], np.where(candidates[j] == triple[k]))
 
-    if(len(triple) > 0):
-        print("Assigning points via naked triple")
-
-        board.score +=1450
-        print(board.score)
+    if(len(triple) > 0): return True
+    return False

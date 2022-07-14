@@ -57,7 +57,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(board)
+                return board.score
                     
             """ 
             PAIR CHECKS
@@ -75,7 +75,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(board)
+                return board.score
 
             """ 
             TRIPLE CHECKS
@@ -91,7 +91,7 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(board)
+                return board.score
 
 
             """ 
@@ -105,12 +105,12 @@ class DifficultyAssign:
 
             # We have done single checks - if it is the first loop set the difficulty
             if(board.empty_slot_count() == 0):  
-                return DifficultyAssign.assign_difficulty(board)
+                return board.score
 
 
 
         if(board.empty_slot_count() != 0):
-            return 5
+            return 15000
 
 
 
@@ -127,7 +127,6 @@ class DifficultyAssign:
                     board.score += 100
                     change_made = True
 
-    @staticmethod
-    def assign_difficulty(board):
-        return board.score
+   
+
    
